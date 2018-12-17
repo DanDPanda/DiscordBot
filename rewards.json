@@ -1,0 +1,88 @@
+{
+    "poke": [ 
+        {
+            "number": 249,
+            "name": "Lugia",
+            "time": 2000,
+            "img": "https://cdn.bulbagarden.net/upload/thumb/4/44/249Lugia.png/250px-249Lugia.png",
+            "evolution": "NULL"
+        },
+        {
+            "number": 250,
+            "name": "Ho-Oh",
+            "time": 2000,
+            "img": "https://cdn.bulbagarden.net/upload/thumb/6/67/250Ho-Oh.png/250px-250Ho-Oh.png",
+            "evolution": "NULL"
+        },
+        {
+            "number": 251,
+            "name": "Celebi",
+            "time": 2000,
+            "img": "https://cdn.bulbagarden.net/upload/thumb/e/e7/251Celebi.png/250px-251Celebi.png",
+            "evolution": "NULL"
+        },
+        {
+            "number": 380,
+            "name": "Latias",
+            "time": 2000,
+            "img": "https://cdn.bulbagarden.net/upload/thumb/2/24/380Latias.png/250px-380Latias.png",
+            "evolution": "NULL"
+        },
+        {
+            "number": 381,
+            "name": "Latios",
+            "time": 2000,
+            "img": "https://cdn.bulbagarden.net/upload/thumb/5/52/381Latios.png/250px-381Latios.png",
+            "evolution": "NULL"
+        },
+        {
+            "number":382,
+            "name": "Kyogre",
+            "time": 2000,
+            "img": "https://cdn.bulbagarden.net/upload/thumb/4/41/382Kyogre.png/600px-382Kyogre.png",
+            "evolution": "NULL"
+        },
+        {
+            "number":383,
+            "name": "Groudon",
+            "time": 2000,
+            "img": "https://cdn.bulbagarden.net/upload/thumb/7/70/383Groudon.png/250px-383Groudon.png",
+            "evolution": "NULL"
+        },
+        {
+            "number":384,
+            "name": "Rayquaza",
+            "time": 2000,
+            "img": "https://cdn.bulbagarden.net/upload/thumb/e/e4/384Rayquaza.png/250px-384Rayquaza.png",
+            "evolution": "NULL"
+        },
+        {
+            "number":483,
+            "name": "Dialga",
+            "time": 2000,
+            "img": "https://cdn.bulbagarden.net/upload/thumb/8/8a/483Dialga.png/250px-483Dialga.png",
+            "evolution": "NULL"
+        },
+        {
+            "number":484,
+            "name": "Palkia",
+            "time": 2000,
+            "img": "https://cdn.bulbagarden.net/upload/thumb/6/66/484Palkia.png/250px-484Palkia.png",
+            "evolution": "NULL"
+        },
+        {
+            "number":487,
+            "name": "Giritina",
+            "time": 2000,
+            "img": "https://cdn.bulbagarden.net/upload/thumb/c/c5/487Giratina-Altered.png/250px-487Giratina-Altered.png",
+            "evolution": "NULL"
+        },
+        {
+            "number":488,
+            "name": "Cresselia",
+            "time": 2000,
+            "img": "https://cdn.bulbagarden.net/upload/thumb/4/4a/488Cresselia.png/250px-488Cresselia.png",
+            "evolution": "NULL"
+        }
+    ]
+}
