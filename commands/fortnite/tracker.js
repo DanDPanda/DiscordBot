@@ -16,12 +16,21 @@ function make_message(message, db) {
   }
   db.query(`SELECT * FROM tracker ORDER BY difference DESC;`, (err, rows) => {
     db.query("SELECT * FROM track_stats;", (err, stats) => {
-      let mess =
+      let mess;
+      try {
+        mess =
         "**Total wins of week " +
         stats[0].date +
         "**\n**Reward for being #1 this week: " +
         JSON.parse(contents).poke[stats[0].week].name +
         "**\n(Stats reset on Monday at 12:00AM, message Dink if you would like to be added/removed)\n```";
+      } catch (e) {
+        mess =
+        "**Total wins of week " +
+        stats[0].date +
+        "**\n**Reward for being #1 this week: NULL**\n" +
+        "(Stats reset on Monday at 12:00AM, message Dink if you would like to be added/removed)\n```";
+      }
       let i = 1;
       rows.forEach(element => {
         mess += `${i++}. ${element.username} = ${element.difference}\n`;
