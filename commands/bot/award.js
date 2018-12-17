@@ -61,6 +61,8 @@ exports.run = async (bot, message, db, tools) => {
             let mess;
             try {
               var json = JSON.parse(message).poke[stats[0].week];
+
+            // If there is no reward
             } catch (e) {
               mess =
                 `Congratulations for winning this week with a high of ${
