@@ -1,6 +1,27 @@
-This is a discord bot meant to be used only by myself in my server.
+# README update is in progress.
+## Last update: 12/16/2018
 
-Current features:
+### Introduction:
+
+### General Commands:
+- !url
+  
+### Fortnite Commands:
+- !fortwin <username> <platform>
+- !fortsolo <username> <platform>
+- !fortduo <username> <platform>
+- !fortsquad <username> <platform>
+- !fortlife <username> <platform>
+- !forttracker
+  
+### Pokemon Commands:
+- !catch
+- !pokestats
+- !pokelist
+- !pokeset <pokemon number>
+- !pokevolve
+  
+### Current features:
 
 - Fortnite Tracker (API)
   - Purpose: I enjoy playing with my friends and youth from church, and I would like for them to easily be able to access their stats.
