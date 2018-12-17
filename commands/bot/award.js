@@ -55,8 +55,31 @@ exports.run = async (bot, message, db, tools) => {
           // This gets the awarded pokemon
           db.query("SELECT * FROM track_stats", (err, stats) => {
             // For each winner, they will get this pokemon as a reward
-            var json = JSON.parse(message).poke[stats[0].week];
-            let mess =
+            let mess;
+            try {
+              var json = JSON.parse(message).poke[stats[0].week];
+            } catch (e) {
+              mess =
+                `Congratulations for winning this week with a high of ${
+                  rows[0].difference
+                } wins!\n` + "```\n";
+              db.query(
+                "SELECT * FROM tracker ORDER BY difference DESC;",
+                (err, players) => {
+                  let j = 0;
+                  players.forEach(playa => {
+                    if (j++ < rows.length) {
+                      mess += `*${playa.username} = ${playa.difference}*\n`;
+                    } else {
+                      mess += `${playa.username} = ${playa.difference}\n`;
+                    }
+                  });
+                }
+              );
+              bot.channels.get("472986828014747679").send(mess + "\n```");
+              return;
+            }
+            mess =
               `Congratulations for winning ${
                 json.name
               } this week with a high of ${rows[0].difference} wins!\n` +
