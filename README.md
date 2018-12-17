@@ -8,17 +8,26 @@
   
 ### Fortnite Commands:
   -!fortwin <username> <platform>
+  
   -!fortsolo <username> <platform>
+  
   -!fortduo <username> <platform>
+  
   -!fortsquad <username> <platform>
+  
   -!fortlife <username> <platform>
+  
   -!forttracker
   
 ### Pokemon Commands:
   -!catch
+  
   -!pokestats
+  
   -!pokelist
+  
   -!pokeset <pokemon number>
+  
   -!pokevolve
   
 ### Current features:
