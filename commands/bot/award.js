@@ -37,6 +37,9 @@ exports.run = async (bot, message, db, tools) => {
   // Make it update manually one more time before it awards
   let i = 1;
   db.query(`SELECT * FROM tracker ORDER BY difference DESC;`, (err, rows) => {
+    if (rows.length == 0) {
+      return;
+    }
     rows.forEach(async element => {
       try {
         get_stats(db, element, i++);
@@ -58,6 +61,8 @@ exports.run = async (bot, message, db, tools) => {
             let mess;
             try {
               var json = JSON.parse(message).poke[stats[0].week];
+
+            // If there is no reward
             } catch (e) {
               mess =
                 `Congratulations for winning this week with a high of ${
