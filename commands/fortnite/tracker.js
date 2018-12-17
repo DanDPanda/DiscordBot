@@ -69,21 +69,18 @@ function get_stats(db, player, i) {
   }, i * 3000);
 }
 
-// Gets the stats of all players
-function check_players(db) {
-  return new Promise(function(resolve, reject) {
-    db.query(`SELECT * FROM tracker ORDER BY difference DESC;`, (err, rows) => {
-      resolve(rows);
-    });
-  });
-}
-
 // OOF this code was a pain in the butt
 // It was tough getting the "make_message()" to run right
 // Gets all the players, updates them, and sends the message
 exports.run = async (bot, message, args, tools) => {
   var db = args[0];
   let i = 1;
+
+  db.query("SELECT * FROM tracker;", (err, rows) => {
+    if (rows.length == 0) {
+      return;
+    }
+  });
 
   db.query(`SELECT * FROM tracker ORDER BY difference DESC;`, (err, rows) => {
     rows.forEach(async element => {
