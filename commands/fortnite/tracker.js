@@ -76,13 +76,11 @@ exports.run = async (bot, message, args, tools) => {
   var db = args[0];
   let i = 1;
 
-  db.query("SELECT * FROM tracker;", (err, rows) => {
+  db.query(`SELECT * FROM tracker ORDER BY difference DESC;`, (err, rows) => {
     if (rows.length == 0) {
       return;
     }
-  });
 
-  db.query(`SELECT * FROM tracker ORDER BY difference DESC;`, (err, rows) => {
     rows.forEach(async element => {
       try {
         get_stats(db, element, i++);

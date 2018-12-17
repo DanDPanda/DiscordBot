@@ -37,6 +37,9 @@ exports.run = async (bot, message, db, tools) => {
   // Make it update manually one more time before it awards
   let i = 1;
   db.query(`SELECT * FROM tracker ORDER BY difference DESC;`, (err, rows) => {
+    if (rows.length == 0) {
+      return;
+    }
     rows.forEach(async element => {
       try {
         get_stats(db, element, i++);
