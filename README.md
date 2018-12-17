@@ -1,4 +1,4 @@
-This is a discord bot meant to be used only by myself in my server.
+#README WILL BE UPDATED!
 
 Current features:
 
