@@ -6,5 +6,3 @@ log.txt
 .env
 .vscode
 backup_database
-commands/other/ssh.js
-commands/other/activate.js
