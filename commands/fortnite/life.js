@@ -22,17 +22,7 @@ exports.run = (bot, message, args, tools) => {
           .setTitle(`Duo Stats for ${data.username}\n\n`)
           .setTitle(`Lifetime Stats for ${data.username}\n\n`)
           .setDescription(
-            `Wins: *${data.stats.lifetime[8].Wins}*\n` +
-              `Top 10 Solo/Top 5 Duo/Top 3 Squad: *${parseInt(
-                data.stats.lifetime[0]["Top 3"]
-              ) +
-                parseInt(data.stats.lifetime[1]["Top 5s"]) +
-                parseInt(data.stats.lifetime[2]["Top 3s"])}*\n` +
-              `Top 25 Solo/Top 12 Duo/Top 6 Squad: *${parseInt(
-                data.stats.lifetime[3]["Top 6s"]
-              ) +
-                parseInt(data.stats.lifetime[4]["Top 12s"]) +
-                parseInt(data.stats.lifetime[5]["Top 25s"])}*`,
+            `Wins: *${data.stats.lifetime[8].Wins}*\n`,
             true
           )
           .setThumbnail("https://i.imgur.com/IMjozOI.jpg")
