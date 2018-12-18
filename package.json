@@ -9,7 +9,6 @@
     "fortnite": "^4.1.1",
     "mysql": "^2.16.0",
     "node-cron": "^1.2.1",
-    "r6-discord": "^1.2.1",
     "rainbowsix-api-node": "0.0.1",
     "sql": "^0.78.0"
   },
