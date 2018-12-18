@@ -18,11 +18,6 @@ exports.run = async (bot, message, args, tools) => {
 
   R6.stats(username, platform, false)
     .then(response => {
-      let wins = parseInt(response.player.stats.casual.wins) + parseInt(response.player.stats.ranked.wins);
-      let losses = parseInt(response.player.stats.casual.losses) + parseInt(response.player.stats.ranked.losses);
-      let kills = parseInt(response.player.stats.casual.kills) + parseInt(response.player.stats.ranked.kills);
-      let deaths = parseInt(response.player.stats.casual.deaths) + parseInt(response.player.stats.ranked.deaths);
-
       // Creates the embed
       const embed = new Discord.RichEmbed()
         .setColor(0xff0000)
@@ -30,16 +25,17 @@ exports.run = async (bot, message, args, tools) => {
           `Tachanka`,
           "https://ubistatic19-a.akamaihd.net/resource/pt-br/game/rainbow6/siege/r6-operator-tachanka_229936.png"
         )
-        .setTitle(`${username}'s R6 Overall Stats`)
+        .setTitle(`${username}'s R6 Ranked Stats`)
         .setThumbnail("https://i.redd.it/iznunq2m8vgy.png")
         .setFooter(`All information derived from r6stats.com`)
-        .addField("Wins", `${wins}`, true)
-        .addField("Losses", `${losses}`, true)
-        .addField("W/L Ratio", `${(wins/losses).toFixed(2)}`, true)
-        .addField("Kills", `${kills}`, true)
-        .addField("Deaths", `${deaths}`, true)
-        .addField("K/D Ratio", `${(kills/deaths).toFixed(2)}`, true);
+        .addField("Wins", `${response.player.stats.ranked.wins}`, true)
+        .addField("Losses", `${response.player.stats.ranked.losses}`, true)
+        .addField("W/L Ratio", `${response.player.stats.ranked.wlr}`, true)
+        .addField("Kills", `${response.player.stats.ranked.kills}`, true)
+        .addField("Deaths", `${response.player.stats.ranked.deaths}`, true)
+        .addField("K/D Ratio", `${response.player.stats.ranked.kd}`, true);
       message.channel.send(embed);
+      console.log(response.player);
     })
     .catch(error => {
       console.error(error);
