@@ -34,7 +34,6 @@ exports.run = async (bot, message, args, tools) => {
       .addField("Kills", `${response.player.stats.casual.kills}`, true)
       .addField("Deaths", `${response.player.stats.casual.deaths}`, true);
     message.channel.send(embed);
-    console.log(response.player.stats.casual);
   }).catch(error => {
     console.error(error);
   });
