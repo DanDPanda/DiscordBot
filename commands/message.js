@@ -51,8 +51,8 @@ exports.run = async (bot, message, database, tools) => {
     new_prefix = fortnite_prefix;
   } else if (msg.startsWith(poke_prefix)) {
     new_prefix = poke_prefix;
-  } else if (msg.startsWith(r6_prefix)) {
-    new_prefix = r6_prefix;
+  // } else if (msg.startsWith(r6_prefix)) {
+  //   new_prefix = r6_prefix;
   } else if (msg.startsWith("!")) {
     new_prefix = prefix;
   } else {
@@ -71,8 +71,8 @@ exports.run = async (bot, message, database, tools) => {
       args.push(database);
     } else if (new_prefix == fortnite_prefix) {
       commandFile = require(`./fortnite/${cmd}.js`);
-    } else if (new_prefix == r6_prefix) {
-      commandFile = require(`./r6/${cmd}.js`);
+    // } else if (new_prefix == r6_prefix) {
+    //   commandFile = require(`./r6/${cmd}.js`);
     } else if (new_prefix == poke_prefix) {
       commandFile = require(`./poke/${cmd}.js`);
       args.push(database);
