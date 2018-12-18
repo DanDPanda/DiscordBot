@@ -5,6 +5,8 @@
 
 ### General Commands:
 - !url
+- !ssh
+- !activate
   
 ### Fortnite Commands:
 - !fortwin <username> <platform>
