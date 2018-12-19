@@ -88,7 +88,7 @@ try {
       throw err;
     }
     console.log("Connected to database.");
-    // databse.query("DELETE FROM current_pokemon;");
+    database.query("DELETE FROM current_pokemon;");
   });
 } catch (e) {
   setTimeout(function() {
