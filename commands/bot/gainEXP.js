@@ -2,7 +2,7 @@
 const Discord = require("discord.js");
 
 // Function
-exports.run = (bot, message, db, tools) => {
+exports.run = (message, db) => {
   // Error Checking
   if (message.guild === null) {
     return;

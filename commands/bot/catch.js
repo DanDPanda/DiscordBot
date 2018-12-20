@@ -92,7 +92,7 @@ function catch_pokemon(message, db, current_pokemon) {
   });
 }
 
-exports.run = async (bot, message, db, tools) => {
+exports.run = async (message, db) => {
   // Error checking
   if (message.guild === null) {
     return;

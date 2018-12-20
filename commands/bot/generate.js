@@ -73,7 +73,7 @@ function generate_current(message, db) {
 }
 
 // This spawns the pokemon on random
-exports.run = async (bot, message, db, tools) => {
+exports.run = async (message, db) => {
   // Error checking
   if (message.guild === null) {
     return;

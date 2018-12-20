@@ -16,13 +16,13 @@ exports.run = async (bot, message, database, tools) => {
   // Pokemon and coin conditions
   if (message.content.toLowerCase() == "!catch") {
     commandFile = require(`./bot/catch.js`);
-    commandFile.run(bot, message, database);
+    commandFile.run(message, database);
     return;
   } else {
     commandFile = require(`./bot/generate.js`);
-    commandFile.run(bot, message, database);
+    commandFile.run(message, database);
     commandFile = require(`./bot/gainEXP.js`);
-    commandFile.run(bot, message, database);
+    commandFile.run(message, database);
   }
 
   // Command reading
