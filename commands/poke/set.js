@@ -2,12 +2,12 @@
 const Discord = require("discord.js");
 
 // Updates the current pokemon.
-function update_pokemon(message, args) {
+function update_pokemon(message, args, db) {
   return new Promise(function(resolve, reject) {
     console.log(
       `${message.author.username} has updated to pokemon number ${args[0]}.`
     );
-    args[1].query(
+    db.query(
       `UPDATE trainer SET number = ? WHERE id = ?;`,
       [args[0], message.author.id],
       (err, rows) => {
@@ -18,9 +18,9 @@ function update_pokemon(message, args) {
 }
 
 // Checks if the trainer has the pokemon.
-function check_list(message, args) {
+function check_list(message, args, db) {
   return new Promise(function(resolve, reject) {
-    args[1].query(
+    db.query(
       `SELECT * FROM trainer_pokemon tp, pokemon p WHERE tp.trainer_id = ? AND tp.pokemon_number = ? AND tp.pokemon_number = p.number;`,
       [message.author.id, args[0]],
       (err, rows) => {
@@ -30,13 +30,13 @@ function check_list(message, args) {
   });
 }
 
-exports.run = async (bot, message, args, tools) => {
+exports.run = async (bot, message, args, db) => {
   // Command has to be !pokeset <int>
-  if (args.length === 2) {
+  if (args.length === 1) {
     let valid = 1;
 
     // Counts the total number
-    await check_list(message, args).then(rows => {
+    await check_list(message, args, db).then(rows => {
       valid = rows;
     });
 
@@ -54,7 +54,7 @@ exports.run = async (bot, message, args, tools) => {
     }
 
     // Updates the trainer's current pokemon
-    await update_pokemon(message, args);
+    await update_pokemon(message, args, db);
     message.author.send(
       `Pokemon updated to **${valid[0].number}.${valid[0].name}**!`
     );

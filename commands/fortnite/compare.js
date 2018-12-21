@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const Client = require("fortnite");
 const ft = new Client(process.env.FORTNITE);
 
-exports.run = (bot, message, args, tools) => {
+exports.run = (bot, message, args, db) => {
   if (args.length === 4) {
     let player1 = ft
       .user(args[0], args[1])

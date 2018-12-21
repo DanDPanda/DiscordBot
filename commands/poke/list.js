@@ -2,9 +2,9 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 
-exports.run = (bot, message, args, tools) => {
+exports.run = (bot, message, args, db) => {
   // Command has to be !pokelist
-  if (args.length === 1) {
+  if (args.length === 0) {
     // Creates the boxed text for each pokemon the person has
     // New line for each pokemon
     var text = "```\n";
@@ -15,7 +15,7 @@ exports.run = (bot, message, args, tools) => {
         ORDER BY p.number;`;
 
     // Starts the database search
-    args[0].query(sql, [message.author.id], (err, rows) => {
+    db.query(sql, [message.author.id], (err, rows) => {
       if (rows.length > 0) {
         for (var i = 0; i < rows.length; i++) {
           text += `${rows[i].number}. ${rows[i].name}\n`;

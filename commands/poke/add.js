@@ -1,11 +1,10 @@
 // Creating the discord bot
 const Discord = require("discord.js");
 
-exports.run = async (bot, message, args, tools) => {
-  var db = args[5];
+exports.run = async (bot, message, args, db) => {
 
   // Checks to see if the argument has the correct amount of args
-  if (args.length != 6) {
+  if (args.length != 5) {
     console.log(`Only ${args.length} arguments, not the correct amount!`);
     return;
   }

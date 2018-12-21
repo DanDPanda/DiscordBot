@@ -2,9 +2,9 @@
 const Discord = require("discord.js");
 
 // Function gets to see if there is an evolved pokemon
-function check_evolution(message, args) {
+function check_evolution(message, db) {
   return new Promise(function(resolve, reject) {
-    args[0].query(
+    db.query(
       `SELECT p.name, p.evolution FROM trainer t, pokemon p WHERE ? = t.id AND t.number = p.number;`,
       [message.author.id],
 
@@ -17,9 +17,9 @@ function check_evolution(message, args) {
 }
 
 // Function gets to see if the trainer has the evolved pokemon
-function check_trainer(message, args) {
+function check_trainer(message, db) {
   return new Promise(function(resolve, reject) {
-    args[0].query(
+    db.query(
       `SELECT p.name, p.evolution 
             FROM trainer t, pokemon p, trainer_pokemon tp 
             WHERE ? = t.id 
@@ -36,9 +36,9 @@ function check_trainer(message, args) {
 }
 
 // Function gets the information of the current pokemon
-function get_pokemon_info(message, args) {
+function get_pokemon_info(message, db) {
   return new Promise(function(resolve, reject) {
-    args[0].query(
+    db.query(
       `SELECT p.name, p.number, p.evolution, p.time FROM pokemon p, trainer t WHERE ? = t.id AND t.number = p.number;`,
       [message.author.id],
       (err, rows) => {
@@ -49,9 +49,9 @@ function get_pokemon_info(message, args) {
 }
 
 // Function gets the information of the evolved pokemon
-function get_evolved_info(args, evolved) {
+function get_evolved_info(db, evolved) {
   return new Promise(function(resolve, reject) {
-    args[0].query(
+    db.query(
       `SELECT name, number, time FROM pokemon WHERE ? = number;`,
       [evolved],
       (err, rows) => {
@@ -62,9 +62,9 @@ function get_evolved_info(args, evolved) {
 }
 
 // Function adds the evolved pokemon into their roster
-function evolve(message, args, evolved) {
+function evolve(message, db, evolved) {
   return new Promise(function(resolve, reject) {
-    args[0].query(
+    db.query(
       `INSERT INTO trainer_pokemon (trainer_id, pokemon_number) VALUES (?, ?);`,
       [message.author.id, evolved[0].number],
       (err, rows) => {
@@ -75,9 +75,9 @@ function evolve(message, args, evolved) {
 }
 
 // Checks whether the trainer has enough exp
-function get_exp(message, args) {
+function get_exp(message, db) {
   return new Promise(function(resolve, reject) {
-    args[0].query(
+    db.query(
       `SELECT exp FROM trainer WHERE ? = id;`,
       [message.author.id],
       (err, rows) => {
@@ -88,9 +88,9 @@ function get_exp(message, args) {
 }
 
 // Deduct EXP
-function deduct_exp(message, args, amount) {
+function deduct_exp(message, db, amount) {
   return new Promise(function(resolve, reject) {
-    args[0].query(
+    db.query(
       `UPDATE trainer SET exp = ? WHERE ? = id;`,
       [amount, message.author.id],
       (err, rows) => {
@@ -100,16 +100,16 @@ function deduct_exp(message, args, amount) {
   });
 }
 
-exports.run = async (bot, message, args, tools) => {
+exports.run = async (bot, message, args, db) => {
   // Command has to be !pokevolve
-  if (args.length === 1) {
+  if (args.length === 0) {
     // Initialize the variables
     let current;
     let exp;
     let evolved;
 
     // Checks to see if the pokemon can evolve
-    await check_evolution(message, args).then(rows => {
+    await check_evolution(message, db).then(rows => {
       current = rows;
     });
     try {
@@ -130,7 +130,7 @@ exports.run = async (bot, message, args, tools) => {
     }
 
     // Checks to see if the trainer already has the pokemon
-    await check_trainer(message, args).then(rows => {
+    await check_trainer(message, db).then(rows => {
       current = rows;
     });
     if (current.length != 0) {
@@ -147,17 +147,17 @@ exports.run = async (bot, message, args, tools) => {
     }
 
     // Gets the current pokemon's information
-    await get_pokemon_info(message, args).then(rows => {
+    await get_pokemon_info(message, db).then(rows => {
       current = rows;
     });
 
     // Gets evolved pokemon's information
-    await get_evolved_info(args, current[0].evolution).then(rows => {
+    await get_evolved_info(db, current[0].evolution).then(rows => {
       evolved = rows;
     });
 
     // Checks if the user has the correct amount of EXP
-    await get_exp(message, args).then(rows => {
+    await get_exp(message, db).then(rows => {
       exp = rows[0].exp - (1000000 / parseInt(current[0].time)).toFixed(0);
     });
 
@@ -168,8 +168,8 @@ exports.run = async (bot, message, args, tools) => {
           current[0].name
         } into ${evolved[0].number}.${evolved[0].name}!`
       );
-      await deduct_exp(message, args, exp);
-      await evolve(message, args, evolved);
+      await deduct_exp(message, db, exp);
+      await evolve(message, db, evolved);
     } else {
       console.log(
         `${message.author.username} doesn't have enough EXP to evolve ${

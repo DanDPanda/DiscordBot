@@ -39,7 +39,9 @@ exports.run = async (bot, message, database, tools) => {
     message.author.send('Please use the fortnite commands in the "fortnite-stats" channel or this direct message.');
     message.delete(5000);
     return;
-  } else if (msg.startsWith(fortnite_prefix)) {
+  } 
+  
+  if (msg.startsWith(fortnite_prefix)) {
     new_prefix = fortnite_prefix;
   } else if (msg.startsWith(poke_prefix)) {
     new_prefix = poke_prefix;
@@ -60,23 +62,18 @@ exports.run = async (bot, message, database, tools) => {
     let commandFile;
     if (new_prefix == fortnite_prefix && cmd == "tracker") {
       commandFile = require(`./fortnite/${cmd}.js`);
-      args.push(database);
-    } else if (new_prefix == fortnite_prefix) {
-      commandFile = require(`./fortnite/${cmd}.js`);
     // } else if (new_prefix == r6_prefix) {
     //   commandFile = require(`./r6/${cmd}.js`);
     } else if (new_prefix == poke_prefix) {
       commandFile = require(`./poke/${cmd}.js`);
-      args.push(database);
     } else if (new_prefix == "!") {
       commandFile = require(`./other/${cmd}.js`);
-      args.push(database);
     }
     fs.appendFile(
       "log.txt", util.timestamp() + `${message.author.username} used ${new_prefix}${cmd}.\n`
     );
     console.log(`${message.author.username} used ${new_prefix}${cmd}.`);
-    commandFile.run(bot, message, args);
+    commandFile.run(bot, message, args, database);
   } catch (e) {
     console.log(
       `${
