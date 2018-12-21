@@ -1,15 +1,8 @@
 const fs = require("fs");
+const util = require("../../util");
 
 // Creating the discord bot
 const Discord = require("discord.js");
-
-function timestamp() {
-  var d = new Date();
-  var hour = ("0" + d.getHours()).slice(-2);
-  var min = ("0" + d.getMinutes()).slice(-2);
-  var sec = ("0" + d.getSeconds()).slice(-2);
-  return `[` + hour + ":" + min + ":" + sec + `] `;
-}
 
 // Counts the size of the current pokemon table size
 function get_current(db) {
@@ -31,7 +24,7 @@ function generate_current(message, db) {
       // Text and picture are sent
       fs.appendFile(
         __dirname + "/../../log.txt",
-        timestamp() +
+        util.timestamp() +
           `${message.author.username} has caused ${
             pokemon[0].name
           } to appear for ${pokemon[0].time / 1000} seconds!\n`,
@@ -65,7 +58,7 @@ function generate_current(message, db) {
           setTimeout(function() {
             fs.appendFile(
               __dirname + "/../../log.txt",
-              timestamp() + `${pokemon[0].name} has disappeared!\n`,
+              util.timestamp() + `${pokemon[0].name} has disappeared!\n`,
               err => {
                 if (err) throw err;
               }
@@ -80,7 +73,7 @@ function generate_current(message, db) {
 }
 
 // This spawns the pokemon on random
-exports.run = async (bot, message, db, tools) => {
+exports.run = async (message, db) => {
   // Error checking
   if (message.guild === null) {
     return;

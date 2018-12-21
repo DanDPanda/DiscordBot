@@ -2,14 +2,7 @@ const fs = require("fs");
 
 // Creating the discord bot
 const Discord = require("discord.js");
-
-function timestamp() {
-  var d = new Date();
-  var hour = ("0" + d.getHours()).slice(-2);
-  var min = ("0" + d.getMinutes()).slice(-2);
-  var sec = ("0" + d.getSeconds()).slice(-2);
-  return `[` + hour + ":" + min + ":" + sec + `] `;
-}
+const util = require("../../util");
 
 // Creates the trainer in the case that they don't exist
 function make_trainer(message, db) {
@@ -58,7 +51,7 @@ function catch_pokemon(message, db, current_pokemon) {
             (err1, rows1) => {
               fs.appendFile(
                 __dirname + "/../../log.txt",
-                timestamp() +
+                util.timestamp() +
                   `${message.author.username} caught ${
                     current_pokemon.name
                   }.\n`,
@@ -79,7 +72,7 @@ function catch_pokemon(message, db, current_pokemon) {
         } else {
           fs.appendFile(
             __dirname + "/../../log.txt",
-            timestamp() +
+            util.timestamp() +
               `${message.author.username} tried to catch ${
                 current_pokemon.name
               }, but already has it.\n`,
@@ -99,7 +92,7 @@ function catch_pokemon(message, db, current_pokemon) {
   });
 }
 
-exports.run = async (bot, message, db, tools) => {
+exports.run = async (message, db) => {
   // Error checking
   if (message.guild === null) {
     return;
@@ -123,7 +116,7 @@ exports.run = async (bot, message, db, tools) => {
   if (current_size == 0) {
     fs.appendFile(
       __dirname + "/../../log.txt",
-      timestamp() + `${message.author.username} tried to catch nothing.\n`,
+      util.timestamp() + `${message.author.username} tried to catch nothing.\n`,
       err => {
         if (err) throw err;
       }

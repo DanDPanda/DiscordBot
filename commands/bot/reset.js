@@ -1,4 +1,4 @@
-exports.run = (bot, db, tools) => {
+exports.run = (db) => {
   var today = new Date();
   var dd = today.getDate();
   var mm = today.getMonth() + 1; //January is 0!

@@ -2,38 +2,16 @@
 const Discord = require("discord.js");
 const bot = new Discord.Client();
 const mysql = require("mysql");
-const cron = require("node-cron");
 const fs = require("fs");
+const util = require("./util");
+const cron = require("node-cron");
 require('dotenv').config();
 
 console.log("Time Start: " + new Date());
 
 // Schedule to ping every day
 cron.schedule("0 0 * * *", function() {
-  var today = new Date();
-  fs.appendFile(
-    "log.txt",
-    timestamp() +
-      `Date: ` +
-      (parseInt(today.getMonth()) +
-      1) +
-      "/" +
-      today.getDate() +
-      "/" +
-      today.getFullYear() +
-      "\n",
-    err => {
-      if (err) throw err;
-    }
-  );
-  console.log(
-    "Date: " +
-      (parseInt(today.getMonth()) + 1) +
-      "/" +
-      today.getDate() +
-      "/" +
-      today.getFullYear()
-  );
+  util.daily();
 });
 
 // Schedule to reset the tracker every week
@@ -53,7 +31,7 @@ cron.schedule("0 0 * * 1", function() {
       setTimeout(() => { 
         console.log("Resetting the tracker stats.");
         commandFile = require(`./commands/bot/reset.js`);
-        commandFile.run(bot, database);
+        commandFile.run(database);
       }, rows.length * 4000);
     }
   );
@@ -61,15 +39,6 @@ cron.schedule("0 0 * * 1", function() {
 
 bot.on("error", e => {});
 bot.on("warn", e => {});
-
-// Function to get timestamp
-function timestamp() {
-  var d = new Date();
-  var hour = ("0" + d.getHours()).slice(-2);
-  var min = ("0" + d.getMinutes()).slice(-2);
-  var sec = ("0" + d.getSeconds()).slice(-2);
-  return `[` + hour + ":" + min + ":" + sec + `] `;
-}
 
 // Connect to the database
 var database = mysql.createConnection({

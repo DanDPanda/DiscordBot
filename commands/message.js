@@ -5,16 +5,8 @@ const fs = require("fs");
 const prefix = "!";
 const fortnite_prefix = "!fort";
 const poke_prefix = "!poke";
+const util = require("../util");
 const r6_prefix = "!r6";
-
-// Functions
-function timestamp() {
-  var d = new Date();
-  var hour = ("0" + d.getHours()).slice(-2);
-  var min = ("0" + d.getMinutes()).slice(-2);
-  var sec = ("0" + d.getSeconds()).slice(-2);
-  return `[` + hour + ":" + min + ":" + sec + `] `;
-}
 
 // This is what is run when the this function is called
 exports.run = async (bot, message, database, tools) => {
@@ -24,13 +16,13 @@ exports.run = async (bot, message, database, tools) => {
   // Pokemon and coin conditions
   if (message.content.toLowerCase() == "!catch") {
     commandFile = require(`./bot/catch.js`);
-    commandFile.run(bot, message, database);
+    commandFile.run(message, database);
     return;
   } else {
     commandFile = require(`./bot/generate.js`);
-    commandFile.run(bot, message, database);
+    commandFile.run(message, database);
     commandFile = require(`./bot/gainEXP.js`);
-    commandFile.run(bot, message, database);
+    commandFile.run(message, database);
   }
 
   // Command reading
@@ -81,9 +73,7 @@ exports.run = async (bot, message, database, tools) => {
       args.push(database);
     }
     fs.appendFile(
-      "log.txt",
-      timestamp() + `${message.author.username} used ${new_prefix}${cmd}.\n`,
-      err => {if (err) throw err;}
+      "log.txt", util.timestamp() + `${message.author.username} used ${new_prefix}${cmd}.\n`
     );
     console.log(`${message.author.username} used ${new_prefix}${cmd}.`);
     commandFile.run(bot, message, args);
