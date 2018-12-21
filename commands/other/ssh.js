@@ -1,7 +1,6 @@
-exports.run = async (bot, message, db, tools) => {
-    let database = db[0];
+exports.run = async (bot, message, args, db) => {
     if (message.author.id == "130519896441356288") {
-        database.query("SELECT * FROM ngrok", (err, rows) => {
+        db.query("SELECT * FROM ngrok", (err, rows) => {
             message.channel.send(`${rows[0].ssh}`);
         });
     }

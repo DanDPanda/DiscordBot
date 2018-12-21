@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 
-exports.run = (bot, message, args, tools) => {
+exports.run = (bot, message, args, db) => {
   if (message.author.username == "Dink") {
     message.channel.send(
       "Hello my name is Pizza Pupper and here are my Fortnite Commands:"

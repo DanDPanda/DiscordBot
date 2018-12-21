@@ -33,7 +33,7 @@ function get_stats(db, player, i) {
 }
 
 // This is run when it is called.
-exports.run = async (bot, message, db, tools) => {
+exports.run = async (bot, message, db) => {
   // Make it update manually one more time before it awards
   let i = 1;
   db.query(`SELECT * FROM tracker ORDER BY difference DESC;`, (err, rows) => {

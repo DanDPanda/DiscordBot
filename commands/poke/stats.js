@@ -2,18 +2,18 @@
 const Discord = require("discord.js");
 
 // Function gets the total amount of pokemon
-function get_total(message, args) {
+function get_total(message, db) {
   return new Promise(function(resolve, reject) {
-    args[0].query(`SELECT * FROM pokemon;`, (err, rows) => {
+    db.query(`SELECT * FROM pokemon;`, (err, rows) => {
       resolve(rows);
     });
   });
 }
 
 // Function gets the trainer's current amount of pokeon
-function get_current(message, args) {
+function get_current(message, db) {
   return new Promise(function(resolve, reject) {
-    args[0].query(
+    db.query(
       `SELECT * FROM trainer_pokemon tp WHERE tp.trainer_id = ?;`,
       [message.author.id],
       (err, rows) => {
@@ -24,9 +24,9 @@ function get_current(message, args) {
 }
 
 // Function gets the pokemon's image from the trainer
-function get_pokemon(message, args) {
+function get_pokemon(message, db) {
   return new Promise(function(resolve, reject) {
-    args[0].query(
+    db.query(
       `SELECT p.number, p.name, p.img FROM trainer t, pokemon p WHERE t.id = ? AND t.number = p.number;`,
       [message.author.id],
       (err, rows) => {
@@ -37,9 +37,9 @@ function get_pokemon(message, args) {
 }
 
 // Function gets the trainer's EXP
-function get_trainer_exp(message, args) {
+function get_trainer_exp(message, db) {
   return new Promise(function(resolve, reject) {
-    args[0].query(
+    db.query(
       `SELECT exp FROM trainer WHERE id = ?;`,
       [message.author.id],
       (err, rows) => {
@@ -50,9 +50,9 @@ function get_trainer_exp(message, args) {
 }
 
 // Function gets the pokemon's amount of exp require to evolve
-function get_pokemon_exp(message, args) {
+function get_pokemon_exp(message, db) {
   return new Promise(function(resolve, reject) {
-    args[0].query(
+    db.query(
       `SELECT p.time, p.evolution 
                     FROM pokemon p, trainer t 
                     WHERE t.id = ?
@@ -65,43 +65,42 @@ function get_pokemon_exp(message, args) {
   });
 }
 
-exports.run = async (bot, message, args, tools) => {
+exports.run = async (bot, message, args, db) => {
   // Command has to be !pokestats
-  if (args.length === 1) {
+  if (args.length === 0) {
     // Initialize the variables
     let total;
     let current;
-    let poke =
-      "https://i.pinimg.com/originals/b7/07/60/b707602238ec55394c2fab235d2fad88.png";
+    let poke;
     let trainer_exp;
     let pokemon_exp;
 
     // Counts the total number
-    await get_total(message, args).then(rows => {
+    await get_total(message, db).then(rows => {
       total = rows.length;
     });
 
     // Counts the number of pokemon the trainer has
-    await get_current(message, args).then(rows => {
+    await get_current(message, db).then(rows => {
       current = rows.length;
     });
 
     // Gets the trainer's current pokemon's image
-    await get_pokemon(message, args).then(rows => {
+    await get_pokemon(message, db).then(rows => {
       if (rows.length != 0) {
         poke = rows[0];
       }
     });
 
     // Gets the trainer's current exp
-    await get_trainer_exp(message, args).then(rows => {
+    await get_trainer_exp(message, db).then(rows => {
       if (rows.length != 0) {
         trainer_exp = rows[0];
       }
     });
 
     // Gets the exp required to evolve the pokemon
-    await get_pokemon_exp(message, args).then(rows => {
+    await get_pokemon_exp(message, db).then(rows => {
       if (rows.length != 0) {
         pokemon_exp = rows[0];
       }

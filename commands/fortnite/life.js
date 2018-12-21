@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const Client = require("fortnite");
 const ft = new Client(process.env.FORTNITE);
 
-exports.run = (bot, message, args, tools) => {
+exports.run = (bot, message, args, db) => {
   let platform;
   if (args.length > 0 && args.length < 3) {
     if (args.length === 1) {

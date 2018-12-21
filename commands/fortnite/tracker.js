@@ -72,8 +72,7 @@ function get_stats(db, player, i) {
 // OOF this code was a pain in the butt
 // It was tough getting the "make_message()" to run right
 // Gets all the players, updates them, and sends the message
-exports.run = async (bot, message, args, tools) => {
-  var db = args[0];
+exports.run = async (bot, message, args, db) => {
   let i = 1;
 
   db.query(`SELECT * FROM tracker ORDER BY difference DESC;`, (err, rows) => {
