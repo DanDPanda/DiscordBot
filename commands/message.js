@@ -60,7 +60,7 @@ exports.run = async (bot, message, database, tools) => {
   // Atempt to run the commands
   try {
     let commandFile;
-    if (new_prefix == fortnite_prefix && cmd == "tracker") {
+    if (new_prefix == fortnite_prefix) {
       commandFile = require(`./fortnite/${cmd}.js`);
     // } else if (new_prefix == r6_prefix) {
     //   commandFile = require(`./r6/${cmd}.js`);
@@ -70,7 +70,7 @@ exports.run = async (bot, message, database, tools) => {
       commandFile = require(`./other/${cmd}.js`);
     }
     fs.appendFile(
-      "log.txt", util.timestamp() + `${message.author.username} used ${new_prefix}${cmd}.\n`
+      "log.txt", util.timestamp() + `${message.author.username} used ${new_prefix}${cmd}.\n`, (error) => {}
     );
     console.log(`${message.author.username} used ${new_prefix}${cmd}.`);
     commandFile.run(bot, message, args, database);

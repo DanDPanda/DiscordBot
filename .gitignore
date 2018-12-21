@@ -6,3 +6,4 @@ log.txt
 .env
 .vscode
 backup_database
+rewards.json

@@ -27,10 +27,7 @@ function generate_current(message, db) {
         util.timestamp() +
           `${message.author.username} has caused ${
             pokemon[0].name
-          } to appear for ${pokemon[0].time / 1000} seconds!\n`,
-        err => {
-          if (err) throw err;
-        }
+          } to appear for ${pokemon[0].time / 1000} seconds!\n`, (error) => {}
       );
       console.log(
         `${message.author.username} has caused ${
@@ -58,10 +55,7 @@ function generate_current(message, db) {
           setTimeout(function() {
             fs.appendFile(
               __dirname + "/../../log.txt",
-              util.timestamp() + `${pokemon[0].name} has disappeared!\n`,
-              err => {
-                if (err) throw err;
-              }
+              util.timestamp() + `${pokemon[0].name} has disappeared!\n`, (error) => {}
             );
             console.log(`${pokemon[0].name} has disappeared!`);
             db.query(`DELETE FROM current_pokemon;`);

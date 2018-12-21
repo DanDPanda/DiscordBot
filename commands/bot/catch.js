@@ -116,10 +116,7 @@ exports.run = async (message, db) => {
   if (current_size == 0) {
     fs.appendFile(
       __dirname + "/../../log.txt",
-      util.timestamp() + `${message.author.username} tried to catch nothing.\n`,
-      err => {
-        if (err) throw err;
-      }
+      util.timestamp() + `${message.author.username} tried to catch nothing.\n`, (error) => {}
     );
     console.log(`${message.author.username} tried to catch nothing.`);
     message.author.send("There is no pokemon currently!");
