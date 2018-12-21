@@ -31,7 +31,7 @@ cron.schedule("0 0 * * 1", function() {
       setTimeout(() => { 
         console.log("Resetting the tracker stats.");
         commandFile = require(`./commands/bot/reset.js`);
-        commandFile.run(bot, database);
+        commandFile.run(database);
       }, rows.length * 4000);
     }
   );
